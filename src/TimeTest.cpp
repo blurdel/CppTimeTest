@@ -2,6 +2,8 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
+#include <sstream>
+#include <vector>
 using namespace std;
 
 
@@ -20,17 +22,27 @@ int main() {
 	auto    asec_since_epoch = chrono::duration_cast<chrono::seconds>(chrono::system_clock::now().time_since_epoch()).count();
 	uint64_t sec_since_epoch = chrono::duration_cast<chrono::seconds>(chrono::system_clock::now().time_since_epoch()).count();
 
-    cout << "millis: " << ms_since_epoch << ", " << ams_since_epoch << endl;
-    cout << "second: " << sec_since_epoch << ", " << asec_since_epoch << endl;
-    cout << endl;
+	cout << "millis: " << ms_since_epoch << ", " << ams_since_epoch << endl;
+	cout << "second: " << sec_since_epoch << ", " << asec_since_epoch << endl;
+	cout << endl;
 
 
-    unsigned long int sec = time(NULL);
-    cout << "second: " << sec << endl << endl;
+	unsigned long int sec = time(NULL);
+	cout << "second: " << sec << endl << endl;
 
 
-    std::time_t result = std::time(nullptr);
+	std::time_t result = std::time(nullptr);
 	std::cout << "asctime = " << std::asctime(std::localtime(&result)) << result << " seconds since the Epoch"  << endl;
+
+
+	// *** epoch time to string
+	// epoch time
+	long atime = 1548841260;
+	std::time_t secsSinceEpoch = atime;
+	std::stringstream ss;
+	ss << std::put_time(std::localtime(&secsSinceEpoch), "%Y-%m-%d %H:%M:%S");
+	std::cout << std::endl << "*** epoch time to string: " << ss.str() << std::endl;
+
 
 
 	std::time_t t = std::time(nullptr);
